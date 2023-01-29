@@ -5,8 +5,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "prisma:seed":"npx prisma db seed"
   },
+  "prisma":{
+    "seed":"ts-node prisma/seed.ts"
+  }
+  ,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/davi-liporace/POC-typescript-driven.git"

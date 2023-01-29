@@ -8,8 +8,14 @@ datasource db {
 }
 
 model lancamentos {
-  id    Int      @id @default(autoincrement())
-  valor Int
-  nome  String
-  time  DateTime @default(now()) @db.Timestamp(6)
+  id      Int      @id @default(autoincrement())
+  valor   Int
+  usuario String
+  nome    String
+  time    DateTime @default(now()) @db.Timestamp(6)
+}
+
+model usuarios {
+  id      Int    @id @default(autoincrement())
+  usuario String
 }

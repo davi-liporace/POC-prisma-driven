@@ -3,12 +3,13 @@ import prisma from "../database/server.js";
 import { Gastos } from "../protocols/gastos.js";
 
 
-export async function queryLancaGastos(valor: number, nome: string){
+export async function queryLancaGastos(valor: number, nome: string, usuario: string){
     return (
         await prisma.lancamentos.create({
             data: {
               valor: valor,
-              nome: nome
+              nome: nome,
+              usuario: usuario
             }
           })
     )

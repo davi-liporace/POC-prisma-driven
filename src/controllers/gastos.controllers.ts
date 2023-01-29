@@ -14,10 +14,10 @@ export async function getGastos(req: Request, res: Response) : Promise<void> {
 }
 
 export async function lancaGastos(req: Request, res: Response) : Promise<void> {
-  const { valor, nome } = req.body as Gastos;
+  const { valor, nome, usuario } = req.body as Gastos;
 
   try {
-    await gastosRepository.queryLancaGastos(valor, nome)
+    await gastosRepository.queryLancaGastos(valor, nome, usuario)
     res.sendStatus(201);
   } catch (err) {
     res.sendStatus(400);

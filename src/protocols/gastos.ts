@@ -1,4 +1,5 @@
 export type Gastos = {
     valor:number,
-    nome:string
+    nome:string,
+    usuario: string
 }
