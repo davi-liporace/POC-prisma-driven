@@ -6,7 +6,7 @@ import gastosRepository from "../repository/repository.js";
 export async function getGastos(req: Request, res: Response) : Promise<void> {
   try {
     const lancamentos = await gastosRepository.queryGetGastos();
-    res.status(201).send(lancamentos.rows);
+    res.status(201).send(lancamentos);
   } catch (err) {
     res.sendStatus(400);
     console.log(err);
@@ -55,7 +55,7 @@ export async function filtraGastos(req:Request, res:Response) : Promise<void> {
 
   try {
     const lancamentosFiltrados = await gastosRepository.queryFiltraGastos(valor);
-    res.status(201).send(lancamentosFiltrados.rows);
+    res.status(201).send(lancamentosFiltrados);
   } catch (err) {
     res.sendStatus(400);
     console.log(err);

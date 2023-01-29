@@ -1,47 +1,54 @@
 import { QueryResult } from "pg";
-import { connection } from "../database/server.js";
+import prisma from "../database/server.js";
 import { Gastos } from "../protocols/gastos.js";
 
 
-export async function queryLancaGastos(valor: number, nome: string): Promise<QueryResult<Gastos>>{
+export async function queryLancaGastos(valor: number, nome: string){
     return (
-        connection.query(
-            `INSERT INTO lancamentos (valor, nome) VALUES ($1, $2)`,
-            [valor, nome]
-          )
+        await prisma.lancamentos.create({
+            data: {
+              valor: valor,
+              nome: nome
+            }
+          })
     )
+    
 
 }
 
-export async function queryGetGastos() :Promise<QueryResult<object>>{
+export async function queryGetGastos() {
     return(
-        connection.query(`SELECT * FROM lancamentos`)
+       await prisma.lancamentos.findMany()
     )
 }
 
 
-export async function queryAlteraGastos(valor:number, id:number):Promise<QueryResult<object>>{
+export async function queryAlteraGastos(valor:number, id:number){
     return(
-        connection.query(`UPDATE lancamentos SET valor = $1 WHERE id = $2`, [
-            valor,
-            id,
-          ])
+        await prisma.lancamentos.update({
+            where: { id: id },
+            data: { valor:valor }
+          })
     )
 }
 
-export async function queryDeletaGastos(id:number):Promise<QueryResult<object>>{
+export async function queryDeletaGastos(id:number){
     return(
-        connection.query(`DELETE FROM lancamentos WHERE id = $1`, [id])
+        await prisma.lancamentos.delete({
+            where: { id: id }
+          })
     )
 }
 
-export async function queryFiltraGastos(valor:number):Promise<QueryResult<object>>{
+export async function queryFiltraGastos(valor:number){
     return(
-        connection.query(
-            `SELECT * FROM lancamentos WHERE valor >= $1;`,
-            [valor]
+        await prisma.lancamentos.findMany({
+            where: {
+              valor: { gte: valor }
+            }
+          })
           )  
-    )
+    
 }
 
 const gastosRepository = {queryLancaGastos,queryGetGastos, queryAlteraGastos,queryDeletaGastos,queryFiltraGastos} 
