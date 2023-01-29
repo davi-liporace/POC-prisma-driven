@@ -1,15 +1,16 @@
+import { lancamentos } from "@prisma/client";
 import { QueryResult } from "pg";
 import prisma from "../database/server.js";
 import { Gastos } from "../protocols/gastos.js";
 
 
-export async function queryLancaGastos(valor: number, nome: string, usuario: string){
+export async function queryLancaGastos(valor: number, nome: string, usuario: number):Promise<lancamentos>{
     return (
         await prisma.lancamentos.create({
             data: {
               valor: valor,
               nome: nome,
-              usuario: usuario
+              usuarioId: usuario
             }
           })
     )
@@ -51,6 +52,7 @@ export async function queryFiltraGastos(valor:number){
           )  
     
 }
+
 
 const gastosRepository = {queryLancaGastos,queryGetGastos, queryAlteraGastos,queryDeletaGastos,queryFiltraGastos} 
 
